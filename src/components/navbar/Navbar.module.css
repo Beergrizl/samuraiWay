@@ -1,0 +1,11 @@
+.nav {
+    grid-area: n;
+    background-color: darkorchid ;
+    padding: 20px;
+}
+.item a {
+    color: azure;
+}
+.item a.active {
+    color: gold;
+}
