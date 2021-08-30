@@ -9,6 +9,6 @@ export let reducer = combineReducers({
      usersPage: usersReducer
 })
 
-export type RootReduxStoreType = ReturnType<typeof reducer>
-export let store: RootReduxStoreType = createStore(reducer);
+export type RootReduxStoreType = ReturnType<typeof reducer>;
+export let store: Store = createStore(reducer);
 

@@ -3,21 +3,13 @@ import './App.css';
 import {Header} from "./components/header/Header";
 import {Navbar} from "./components/navbar/Navbar";
 import {Profile} from "./components/profile/Profile";
-//import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from 'react-router-dom';
-//import {ActionTypes, ReducersFromStoreType, RootStateType, StoreType} from "./Redux/Store";
-
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/users/UsersContainer";
-//import {RootReduxStoreType} from "./Redux/redux-store";
-
-/*type AppType = {
-
-    store: RootReduxStoreType
-}*/
 
 
-const App = (/*props: AppType*/) => {
+
+const App = () => {
 
 
     return (
