@@ -1,4 +1,5 @@
 import React from "react";
+import {ProfileUserType} from "../components/profile/ProfileContainer";
 
 
 export type likeCountType = {
@@ -9,17 +10,20 @@ export type likeCountType = {
 
 export type ProfilePageType = {
     likesCount: Array<likeCountType>,
-    newPostText: string
+    newPostText: string,
+    profile: any
 }
 
 export let initState ={
     newPostText: '',
     likesCount: [
         {id: 1, message: 'Wats up man?', count: 12},
-        {id: 2, message: 'How are ya doing', count: 19}]
+        {id: 2, message: 'How are ya doing', count: 19}],
+    profile: null
 }
 export type ActionTypes = ReturnType<typeof addPostActionCreator> |
     ReturnType<typeof updateNewTextActionCreator>
+| ReturnType<typeof setUserProfile>
 
 export const profileReducer = (state: ProfilePageType = initState, action: ActionTypes):ProfilePageType => {
     switch (action.type) {
@@ -44,6 +48,10 @@ export const profileReducer = (state: ProfilePageType = initState, action: Actio
             /*stateCopy.newPostText = action.newText;
             return stateCopy;*/
          }
+        case 'SET-USER-PROFILE':{
+            return {...state,
+                profile : action.profile};
+        }
         default:
             return state
     }
@@ -53,4 +61,8 @@ export const addPostActionCreator = () => ({type: 'ADD-POST'}) as const;
 export const updateNewTextActionCreator = (text: string) => ({
     type: 'UPDATE-NEW-TEXT',
     newText: text
+}) as const
+export const setUserProfile = (profile: ProfileUserType ) => ({
+    type: 'SET-USER-PROFILE',
+    profile
 }) as const

@@ -5,3 +5,7 @@
     width: 100%;
     height: 100px;
 }
+.description img {
+    width: 20%;
+    height: 20%;
+}

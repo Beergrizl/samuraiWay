@@ -1,16 +1,15 @@
 import React from "react";
-
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {RootReduxStoreType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 import {addPostActionCreator, updateNewTextActionCreator} from "../../../Redux/profile-reducer";
 
-type mapDispatchToPropsPostType = {
+
+export type mapDispatchToPropsPostType = {
     addPost: () => void;
     updateNewText: (text: string) => void;
 }
-
 
 let mapStateToProps = (state: RootReduxStoreType) => {
     return {
@@ -18,6 +17,7 @@ let mapStateToProps = (state: RootReduxStoreType) => {
         likesCount: state.profilePage.likesCount
     }
 }
+
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsPostType => {
     return {
         addPost: () => {
