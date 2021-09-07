@@ -1,7 +1,7 @@
 import React from "react";
 import {ProfileInfo} from "./MyPost/ProfileInfo/ProfileInfo";
 import {MyPostsContainer, } from "./MyPost/MyPostConteiner";
-import {mapStateToPropsType, ProfilePropsType, ProfileUserType} from "./ProfileContainer";
+import {mapStateToPropsType} from "./ProfileContainer";
 
 
 
