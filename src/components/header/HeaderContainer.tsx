@@ -33,7 +33,6 @@ if (response.data.resultCode === 0) {
         );
     }
 }
-debugger
 
 let mapStateToProps = (state: RootReduxStoreType): mapStateToPropsType => ({
     isAuth: state.auth.isAuth,
