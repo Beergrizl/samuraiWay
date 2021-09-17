@@ -1,5 +1,7 @@
 import React from "react";
 import {ProfileUserType} from "../components/profile/ProfileContainer";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 export type likeCountType = {
@@ -66,3 +68,12 @@ export const setUserProfile = (profile: ProfileUserType ) => ({
     type: 'SET-USER-PROFILE',
     profile
 }) as const
+
+
+export const getUserProfile = (userId:string) => {
+    return (dispatch: Dispatch) =>
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+}

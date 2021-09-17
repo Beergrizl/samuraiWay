@@ -1,4 +1,6 @@
 import React from "react";
+import {authAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type AuthType = {
     id: number,
@@ -7,7 +9,7 @@ export type AuthType = {
     isAuth: boolean
 }
 
-export let initState ={
+export let initState = {
     id: null,
     email: null,
     login: null,
@@ -15,15 +17,16 @@ export let initState ={
 }
 export type ActionTypes = ReturnType<typeof setAuthUserData>
 
-export const authReducer = (state: any = initState, action: ActionTypes):AuthType => {
+export const authReducer = (state: any = initState, action: ActionTypes): AuthType => {
     switch (action.type) {
 
         case 'SET-USER-DATA':
-            return {...state,
+            return {
+                ...state,
                 ...action.data,
                 isAuth: true
 
-        }
+            }
         default:
             return state
     }
@@ -31,5 +34,16 @@ export const authReducer = (state: any = initState, action: ActionTypes):AuthTyp
 
 export const setAuthUserData = (data: AuthType) => ({
     type: 'SET-USER-DATA',
-     data
+    data
 }) as const
+
+
+export const getAuthUserData = () => {
+    return (dispatch: Dispatch) =>
+        authAPI.me()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setAuthUserData(response.data.data))
+                }
+            })
+}
