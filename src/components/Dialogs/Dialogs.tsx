@@ -6,12 +6,11 @@ import {DialogsPageType } from '../../Redux/dialog-reducer';
 import { Redirect } from 'react-router-dom';
 
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
     updateNewMessageBody: (body: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType,
-    isAuth: boolean
-}
+   }
 
 
 
@@ -33,7 +32,7 @@ export const Dialogs = (props: DialogsPropsType) => {
         }
     }
 
-if (!props.isAuth) return <Redirect to ={'/login'}/>
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
