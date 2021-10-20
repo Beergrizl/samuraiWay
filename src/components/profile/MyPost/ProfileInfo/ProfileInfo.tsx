@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../../common/preloader/Preloader";
 import {mapStateToPropsType} from "../../ProfileContainer";
+import ProfileStatus from "./ProfileStatus";
 
 
 export const ProfileInfo = (props:mapStateToPropsType) => {
@@ -18,7 +19,7 @@ export const ProfileInfo = (props:mapStateToPropsType) => {
         <div className={s.description}>
             <img src={props.profile.photos.small}/>
             ava + description</div>
-
+<ProfileStatus status={'Hello my friends'}/>
     </div>
 
 );

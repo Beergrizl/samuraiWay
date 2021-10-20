@@ -110,7 +110,7 @@ let mapStateToProps = (state: RootReduxStoreType): mapStateToPropsType => {
 }*/
 
 
-export default compose (connect(mapStateToProps, {
+export default compose <React.ComponentType>(connect(mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,
