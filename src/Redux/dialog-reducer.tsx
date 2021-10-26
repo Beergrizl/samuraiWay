@@ -1,7 +1,7 @@
 import React from "react";
-export type ActionTypes =
-    ReturnType<typeof updateNewMessageBodyActionCreator> |
-    ReturnType<typeof addMessageActionCreator>
+
+
+export type ActionTypes = ReturnType<typeof addMessageActionCreator>
 
 export let initialState: DialogsPageType = {
     dialogsData: [
@@ -16,8 +16,8 @@ export let initialState: DialogsPageType = {
         {id: 1, message: 'How are ya doing'},
         {id: 2, message: 'Hello'},
         {id: 3, message: 'Yo'},
-    ],
-    newMessageBody: ''
+    ]
+
 }
 export type dialogsDataType = {
     id: number,
@@ -26,34 +26,29 @@ export type dialogsDataType = {
 
 export type messageDataType = {
     id: number,
-    message: string
+    message: string,
+
+
 }
 export type DialogsPageType = {
     dialogsData: Array<dialogsDataType>,
     messageData: Array<messageDataType>,
-    newMessageBody: string
+
 }
 
 export const dialogReducer = (state: DialogsPageType = initialState, action: ActionTypes): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
-            let body = state.newMessageBody;
+            let body = action.newMessageBody;
             return {
                 ...state,
-                newMessageBody: '',
                 messageData: [...state.messageData, {id: 4, message: body}]
-            }
-        case "UPDATE-NEW-MESSAGE-BODY":
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
-                default:
-            return state;
+            } as DialogsPageType
+        default:
+            return state
     }
 }
-export const addMessageActionCreator = () => ({type: 'ADD-MESSAGE'}) as const;
-export const updateNewMessageBodyActionCreator = (text: string) => ({
-    type: 'UPDATE-NEW-MESSAGE-BODY',
-    body: text
+export const addMessageActionCreator = (newMessageBody: string) => ({
+    type: 'ADD-MESSAGE',
+    newMessageBody
 }) as const

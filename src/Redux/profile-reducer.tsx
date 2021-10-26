@@ -12,22 +12,20 @@ export type likeCountType = {
 
 export type ProfilePageType = {
     likesCount: Array<likeCountType>,
-    newPostText: string,
     profile: any,
     status: string
 }
 
 
 export let initState = {
-    newPostText: '',
     likesCount: [
         {id: 1, message: 'Wats up man?', count: 12},
         {id: 2, message: 'How are ya doing', count: 19}],
     profile: null,
     status: ''
 }
-export type ActionTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof updateNewTextActionCreator>
+export type ActionTypes = ReturnType<typeof addPostActionCreator>
+    //| ReturnType<typeof updateNewTextActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 
@@ -36,21 +34,15 @@ export const profileReducer = (state: ProfilePageType = initState, action: Actio
         case "ADD-POST": {
             let newPost = {
                 id: 1,
-                message: state.newPostText,
+                message: action.addNewPost,
                 count: 0
             }
             return {
                 ...state,
                 likesCount: [...state.likesCount, newPost],
-                newPostText: ''
             };
         }
-        case 'UPDATE-NEW-TEXT': {
-            return {
-                ...state,
-                newPostText: action.newText
-            };
-        }
+
         case 'SET-USER-PROFILE': {
             return {
                 ...state,
@@ -68,11 +60,11 @@ export const profileReducer = (state: ProfilePageType = initState, action: Actio
     }
 }
 
-export const addPostActionCreator = () => ({type: 'ADD-POST'}) as const;
-export const updateNewTextActionCreator = (text: string) => ({
-    type: 'UPDATE-NEW-TEXT',
-    newText: text
-}) as const
+export const addPostActionCreator = (addNewPost: string) => ({
+    type: 'ADD-POST',
+    addNewPost
+}) as const;
+
 export const setUserProfile = (profile: ProfileUserType) => ({
     type: 'SET-USER-PROFILE',
     profile
@@ -84,19 +76,20 @@ export const setStatus = (status: string) => ({
 }) as const
 
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) =>
-        usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
-            })
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
 
 export const getStatus = (userId: string) => (dispatch: Dispatch) =>
-        profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            })
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setStatus(response.data))
+        })
 export const updateStatus = (status: string) => (dispatch: Dispatch) =>
     profileAPI.updateStatus(status)
         .then(response => {
-            if(response.data.resultCode ===0) {
+            if (response.data.resultCode === 0) {
                 dispatch(setStatus(status))
-            }})
+            }
+        })
