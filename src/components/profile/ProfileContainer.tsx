@@ -40,11 +40,12 @@ export  type ProfileUserType = {
 export type mapStateToPropsType = {
     profile: ProfileUserType,
     status: string,
-
+    authorizedUserId: string,
+    auth:boolean
 }
 export type mapDispatchToPropsType = {
-    getUserProfile: (userId: string) => void,
-    getStatus: (userId: string) => void,
+    getUserProfile: (userId: number) => void,
+    getStatus: (userId: number) => void,
     updateStatus: (status: string) => void
 }
 
@@ -56,10 +57,10 @@ class ProfileContainer extends React.Component <PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = this.props.authorizedUserId
         }
-        this.props.getUserProfile(userId);
-        this.props.getStatus(userId)
+        this.props.getUserProfile(Number(userId));
+        this.props.getStatus(Number(userId))
 
     }
 
@@ -73,11 +74,14 @@ class ProfileContainer extends React.Component <PropsType> {
     }
 }
 
+
 let mapStateToProps = (state: RootReduxStoreType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    auth: state.auth.isAuth
 
-}) as mapStateToPropsType
+})
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),

@@ -48,7 +48,6 @@ export type ActionType = ReturnType<typeof followSuccess>
     | ReturnType<typeof toggleFollowingInProgress>
 
 
-
 export const usersReducer = (state: InitStateType = initState, action: ActionType): InitStateType => {
     switch (action.type) {
         case FOLLOW:
@@ -87,10 +86,11 @@ export const usersReducer = (state: InitStateType = initState, action: ActionTyp
             return {...state, isFetching: action.isFetching}
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
-            return {...state,
+            return {
+                ...state,
                 followingInProgress: action.isFetching
-            ? [...state.followingInProgress, action.userId]
-            : state.followingInProgress.filter(id => id!== action.userId)
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
             }
         }
         default:
@@ -114,20 +114,20 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number) =
     {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const)
 
 
-
-export const getUsers =(currentPage: number, pageSize:number) =>  {
-    return (dispatch: Dispatch )=> {
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
 
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(setCurrentPage(currentPage))
         })
     }
 }
-export const follow =(userId: number) =>  {
-    return (dispatch: Dispatch )=> {
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId));
         usersAPI.follow(userId)
             /*axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {},{
@@ -135,22 +135,19 @@ export const follow =(userId: number) =>  {
                     "API-KEY": "d3f5a5ec-7ebf-4ca3-ba3f-86a0fe38c919"}
             } )*/
             .then(response => {
-                if(response.data.resultCode === 0){
-                    dispatch(followSuccess(userId))}
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
                 dispatch(toggleFollowingInProgress(false, userId));
             })
     }
 }
-export const unfollow =(userId: number) =>  {
-    return (dispatch: Dispatch )=> {
+export const unfollow = (userId: number) => {
+    return (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId));
         usersAPI.unfollow(userId)
-            /*axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {},{
-                withCredentials: true, headers:{
-                    "API-KEY": "d3f5a5ec-7ebf-4ca3-ba3f-86a0fe38c919"}
-            } )*/
             .then(response => {
-                if(response.data.resultCode === 0){
+                if (response.data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId));
                 }
                 dispatch(toggleFollowingInProgress(false, userId));

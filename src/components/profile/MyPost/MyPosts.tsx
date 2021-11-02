@@ -4,7 +4,8 @@ import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {likeCountType} from "../../../Redux/profile-reducer";
 import {Field, InjectedFormProps, reduxForm,} from "redux-form";
-
+import {required, maxLengthCreator} from "../../../utils/validators";
+import {Textarea} from "../../common/formControls/FormControls";
 
 type myPostsPropsType = {
     likesCount: Array<likeCountType>,
@@ -38,11 +39,15 @@ export const MyPosts = (props: myPostsPropsType) => {
     );
 
 }
+let maxLength10=maxLengthCreator(10)
 export const MyNewPost: React.FC<InjectedFormProps<PostFormType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={'textarea'} name={'addNewPost'} placeholder={'your post should be here'}/>
+                <Field component={Textarea}
+                       name={'addNewPost'}
+                       placeholder={'your post should be here'}
+                       validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button> Add post</button>

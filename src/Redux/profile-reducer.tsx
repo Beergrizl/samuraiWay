@@ -75,13 +75,13 @@ export const setStatus = (status: string) => ({
     status
 }) as const
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) =>
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) =>
     usersAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
         })
 
-export const getStatus = (userId: string) => (dispatch: Dispatch) =>
+export const getStatus = (userId: number) => (dispatch: Dispatch) =>
     profileAPI.getStatus(userId)
         .then(response => {
             dispatch(setStatus(response.data))
