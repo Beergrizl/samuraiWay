@@ -30,8 +30,9 @@ export let UsersComponent = (props: UsersComponentType) => {
     return <div>
         <div>
             {pages.map(p => {
+
                     // @ts-ignore
-                    return <span className={props.currentPage === p && styles.selectedPage}
+                return <span className={props.currentPage === p && styles.selectedPage}
                                  onClick={(e) => {
                                      props.onPageChanged(p)
                                  }}>{p}</span>

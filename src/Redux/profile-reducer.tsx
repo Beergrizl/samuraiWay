@@ -25,7 +25,6 @@ export let initState = {
     status: ''
 }
 export type ActionTypes = ReturnType<typeof addPostActionCreator>
-    //| ReturnType<typeof updateNewTextActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 

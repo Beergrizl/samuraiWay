@@ -22,7 +22,6 @@ import {
 } from "../../Redux/selectors";
 
 
-
 export type mapStateToPropsType = {
     users: Array<UserType>,
     pageSize: number,
@@ -58,13 +57,6 @@ class UsersContainer extends React.Component <UsersPropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.pageSize)
-        /*this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-        })*/
     }
 
     render() {
@@ -100,7 +92,7 @@ let mapStateToProps = (state: RootReduxStoreType): mapStateToPropsType => {
         users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
-        currentPage:getCurrentPage(state),
+        currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state)
     }
@@ -130,11 +122,12 @@ let mapStateToProps = (state: RootReduxStoreType): mapStateToPropsType => {
 }*/
 
 
-export default compose <React.ComponentType>(connect(mapStateToProps, {
+export default compose<React.ComponentType>(connect(mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,
         toggleFollowingInProgress,
-        getUsers}),
-    withAuthRedirect
-    )(UsersContainer)
+        getUsers
+    }),
+    //withAuthRedirect
+)(UsersContainer)

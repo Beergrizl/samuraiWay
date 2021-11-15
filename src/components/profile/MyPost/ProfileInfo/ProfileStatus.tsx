@@ -44,7 +44,7 @@ componentDidUpdate(prevProps: Readonly<StatusType>, prevState: Readonly<{}>, sna
         <div>
             {!this.state.editMode &&
             <div>
-                <span onDoubleClick={this.activateMode}>{this.props.status || '_____'}</span>
+                <span onDoubleClick={this.activateMode}>{this.props.status || '__________'}</span>
             </div>
             }
             {this.state.editMode &&
