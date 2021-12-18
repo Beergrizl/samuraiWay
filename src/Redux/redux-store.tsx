@@ -16,6 +16,12 @@ export let reducer = combineReducers({
     form: formReducer
 })
 
+
+
+
+
+
+
 export type RootReduxStoreType = ReturnType<typeof reducer>;
 export let store: Store = createStore(reducer, applyMiddleware(thunkMiddleware));
 

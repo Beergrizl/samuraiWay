@@ -18,7 +18,7 @@ type PostFormType = {
     addNewPost: string
 }
 
-export const MyPosts = (props: myPostsPropsType) => {
+export const MyPosts = React.memo((props: myPostsPropsType) => {
 
     let postElement = props.likesCount.map(m => <Post message={m.message} key={m.id} count={m.count}/>);
 
@@ -43,7 +43,7 @@ export const MyPosts = (props: myPostsPropsType) => {
         </div>
     );
 
-}
+})
 let maxLength10 = maxLengthCreator(10)
 export const MyNewPost: React.FC<InjectedFormProps<PostFormType>> = (props) => {
     return (

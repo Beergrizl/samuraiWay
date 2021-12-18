@@ -27,9 +27,16 @@ export let initState = {
 export type ActionTypes = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof deletePost>
+
 
 export const profileReducer = (state: ProfilePageType = initState, action: ActionTypes): ProfilePageType => {
     switch (action.type) {
+        case "DELETE-POST": {
+            return {...state, likesCount: state.likesCount
+                    .filter(p => p.id != action.postId)}
+        }
+
         case "ADD-POST": {
             let newPost = {
                 id: 1,
@@ -72,6 +79,11 @@ export const setUserProfile = (profile: ProfileUserType) => ({
 export const setStatus = (status: string) => ({
     type: 'SET-STATUS',
     status
+}) as const
+
+export const deletePost = (postId: number) => ({
+    type: 'DELETE-POST',
+    postId
 }) as const
 
 export const getUserProfile = (userId: number) => (dispatch: Dispatch) =>
