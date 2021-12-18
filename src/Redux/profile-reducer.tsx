@@ -33,8 +33,10 @@ export type ActionTypes = ReturnType<typeof addPostActionCreator>
 export const profileReducer = (state: ProfilePageType = initState, action: ActionTypes): ProfilePageType => {
     switch (action.type) {
         case "DELETE-POST": {
-            return {...state, likesCount: state.likesCount
-                    .filter(p => p.id != action.postId)}
+            return {
+                ...state, likesCount: state.likesCount
+                    .filter(p => p.id != action.postId)
+            }
         }
 
         case "ADD-POST": {
@@ -86,21 +88,19 @@ export const deletePost = (postId: number) => ({
     postId
 }) as const
 
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) =>
-    usersAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+    let response = await usersAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
+}
 
-export const getStatus = (userId: number) => (dispatch: Dispatch) =>
-    profileAPI.getStatus(userId)
-        .then(response => {
-            dispatch(setStatus(response.data))
-        })
-export const updateStatus = (status: string) => (dispatch: Dispatch) =>
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
+}
+
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
+}

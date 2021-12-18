@@ -13,16 +13,16 @@ type FormDataType = {
     password: string
     rememberMe: boolean
 }
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit,error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div><Field placeholder={'Login'} name={"email"} component={Input}
                         validate={[required]}/></div>
             <div><Field placeholder={'Password'} name={"password"} type={"password"} component={Input}
                         validate={[required]}/></div>
             <div><Field component={Input} name={"rememberMe"} type={'checkbox'}/></div>
-            {props.error && <div className={style.formSummaryError}>
-                {props.error}
+            {error && <div className={style.formSummaryError}>
+                {error}
             </div>}
             <div>
                 <button>Login</button>
@@ -35,11 +35,11 @@ export type PropsType = {
     isAuth: boolean
 }
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
-const Login = (props: PropsType) => {
+const Login = ({login,isAuth}: PropsType) => {
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        login(formData.email, formData.password, formData.rememberMe)
     }
-    if (props.isAuth) {
+    if (isAuth) {
         return < Redirect to={'/profile'}/>
     }
     return <div>

@@ -115,31 +115,26 @@ export const toggleFollowingInProgress = (isFetching: boolean, userId: number) =
 
 
 export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true));
+        let data = await usersAPI.getUsers(currentPage, pageSize)
 
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-            dispatch(setCurrentPage(currentPage))
-        })
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
+        dispatch(setCurrentPage(currentPage))
     }
 }
+
 export const follow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId));
-        usersAPI.follow(userId)
-            /*axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {},{
-                withCredentials: true, headers:{
-                    "API-KEY": "d3f5a5ec-7ebf-4ca3-ba3f-86a0fe38c919"}
-            } )*/
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccess(userId))
-                }
-                dispatch(toggleFollowingInProgress(false, userId));
-            })
+        let response = await usersAPI.follow(userId)
+
+        if (response.data.resultCode === 0) {
+            dispatch(followSuccess(userId))
+        }
+        dispatch(toggleFollowingInProgress(false, userId));
     }
 }
 export const unfollow = (userId: number) => {
