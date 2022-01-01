@@ -28,8 +28,8 @@ export type mapStateToPropsType = {
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean,
-    followingInProgress: Array<number>
-}
+    followingInProgress: Array<number>,
+    }
 export type mapDispatchToPropsType = {
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
@@ -62,7 +62,8 @@ class UsersContainer extends React.Component <UsersPropsType> {
                             follow={this.props.follow}
                             unfollow={this.props.unfollow}
                             currentPage={this.props.currentPage}
-                            followingInProgress={this.props.followingInProgress}/>
+                            followingInProgress={this.props.followingInProgress}
+                           />
         </>
     }
 }

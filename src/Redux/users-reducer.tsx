@@ -29,7 +29,7 @@ export type InitStateType = {
     currentPage: number,
     isFetching: boolean,
     followingInProgress: Array<number>
-}
+   }
 
 export let initState: InitStateType = {
     users: [],
@@ -37,8 +37,8 @@ export let initState: InitStateType = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: []
-}
+    followingInProgress: [],
+   }
 export type ActionType = ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>

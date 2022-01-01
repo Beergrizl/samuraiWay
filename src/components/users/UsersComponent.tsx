@@ -11,7 +11,8 @@ export type UsersComponentType = {
     onPageChanged: (pageNumber: number) => void
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
-    followingInProgress: Array<number>
+    followingInProgress: Array<number>,
+
 }
 
 
@@ -21,7 +22,7 @@ export let UsersComponent = ({
                                  pageSize,
                                  currentPage,
                                  users,
-                                 ...props
+                                    ...props
                              }: UsersComponentType) => {
 
     return <div>

@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {RootReduxStoreType} from "../../Redux/redux-store";
 import {compose, Dispatch} from "redux";
 import {addMessageActionCreator} from "../../Redux/dialog-reducer";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthredirect";
 
 
